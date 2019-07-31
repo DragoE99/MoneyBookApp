@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.exampdm.moneybook.MainActivity;
 import com.exampdm.moneybook.R;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
+import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -30,11 +32,17 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
             dateItemView= itemView.findViewById(R.id.itemDate);
         }
     }
+
+
     private final LayoutInflater mInflater;
-
     private List<MoneyEntity> mMoney = Collections.emptyList();
+    private MoneyViewModel mMoneyViewModel;
 
-    public MoneyItemAdapter(Context context){ mInflater = LayoutInflater.from(context);}
+
+
+    public MoneyItemAdapter(Context context, MoneyViewModel moneyViewModel){
+        mInflater = LayoutInflater.from(context);
+        mMoneyViewModel= moneyViewModel;}
 
     @NonNull
     @Override
@@ -60,4 +68,14 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
     public int getItemCount() {
         return mMoney.size();
     }
+
+
+    public void deleteItem(int position){
+
+        mMoneyViewModel.delete(mMoney.get(position));
+        mMoney.remove(position);
+        notifyItemRemoved(position);
+    }
+
 }
+

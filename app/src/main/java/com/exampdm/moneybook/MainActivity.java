@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.exampdm.moneybook.UI.MoneyItemAdapter;
+import com.exampdm.moneybook.UI.SwipeToDeleteCallback;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
@@ -35,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        final MoneyItemAdapter adapter = new MoneyItemAdapter(this);
+        final MoneyItemAdapter adapter = new MoneyItemAdapter(this, mMoneyViewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
 
         mMoneyViewModel.getAllMoney().observe(this, new Observer<List<MoneyEntity>>() {
             @Override
@@ -74,7 +80,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.clear_data) {
+            // Add a toast just for confirmation
+            Toast.makeText(this, "Clearing the data...",
+                    Toast.LENGTH_SHORT).show();
+
+            // Delete the existing data
+            mMoneyViewModel.deleteAllMoney();
             return true;
         }
 
