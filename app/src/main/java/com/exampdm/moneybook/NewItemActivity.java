@@ -1,29 +1,46 @@
 package com.exampdm.moneybook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.exampdm.moneybook.UI.DatePickerFragment;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
+import com.exampdm.moneybook.db.entity.MoneyTagJoin;
+import com.exampdm.moneybook.db.entity.TagEntity;
+import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
-public class NewItemActivity extends AppCompatActivity {
+public class NewItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
     private EditText mEditAmount;
     private EditText mEditDescription;
     private EditText mEditTags;
-    private EditText mEditDate;
+    private TextView mEditDate;
+    private Date itemDate = new Date();
+    private TagEntity[] myTags;
+    private MoneyEntity item;
+    private MoneyTagJoin[] itemTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +48,32 @@ public class NewItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_item);
         mEditAmount = findViewById(R.id.insert_amountTextView);
         mEditDescription = findViewById(R.id.insert_item_description);
-        mEditTags= findViewById(R.id.insertTagsTextView);
-        mEditDate= findViewById(R.id.itemDate);
+        mEditTags = findViewById(R.id.insertTagsTextView);
+        mEditDate = findViewById(R.id.insertDateView);
+
+
+        final MoneyViewModel mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
 
         final Button button = findViewById(R.id.saveItemButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent replyIntent= new Intent();
-                if (TextUtils.isEmpty(mEditAmount.getText())){
+                Intent replyIntent = new Intent();
+                if (TextUtils.isEmpty(mEditAmount.getText())) {
                     setResult(RESULT_CANCELED, replyIntent);
-                }else{
+                } else {
 
-                    replyIntent.putExtra(EXTRA_REPLY, getAmount());
+                    item = createItem();
+                    getTags();
+                    //new MoneyEntity(getAmount(), getDescription());
+                    if (myTags.length != 0) {
+                        mMoneyViewModel.insertAllTags(myTags);
+                    }
+                    if(itemTags.length!=0){
+                        mMoneyViewModel.insertItemTags(itemTags);
+                    }
+                    mMoneyViewModel.insert(item);
+
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();
@@ -52,10 +82,28 @@ public class NewItemActivity extends AppCompatActivity {
         });
     }
 
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void setItemDate(Date userDate) {
+        itemDate = userDate;
+    }
+
+    private void setTextDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
+                Locale.ITALIAN);
+        String temp = dateFormat.format(itemDate);
+        mEditDate.setText(temp);
+    }
 
 
-    private double getAmount(){
-        double current= Double.parseDouble(String.valueOf(mEditAmount.getText()));
+    private double getAmount() {
+        double current;
+        if (TextUtils.isEmpty(mEditAmount.getText())) {
+            current = 0;
+        } else current = Double.parseDouble(String.valueOf(mEditAmount.getText()));
       /*  try {
             current= NumberFormat
                     .getInstance()
@@ -68,20 +116,67 @@ public class NewItemActivity extends AppCompatActivity {
         return current;
     }
 
-    private String[] getTags(){
-        String temp= mEditTags.getText().toString();
-        String[] tags = temp.split("\\s");
-        return tags;
+    public void getTags() {
+        String[] tags;
+        if (TextUtils.isEmpty(mEditTags.getText())) {
+            myTags = new TagEntity[0];
+            itemTags=new MoneyTagJoin[0];
+            return;
+        } else {
+            String temp = mEditTags.getText().toString();
+            tags = temp.split("\\s");
+            myTags = arrayTags(tags);
+            mEditTags.setText(myTags[0].getTag());
+        }
     }
 
-    private Date getItemDate() throws ParseException {
-
-        Date temp = DateFormat.getDateInstance().parse(mEditDate.getText().toString());
-        return temp;
+    private TagEntity[] arrayTags(String[] tags) {
+        TagEntity[] myTags = new TagEntity[tags.length];
+        itemTags=new MoneyTagJoin[tags.length];
+        for (int i = 0; i < tags.length; i++) {
+            myTags[i] = new TagEntity(tags[i]);
+            itemTags[i] = new MoneyTagJoin(item, myTags[i]);
+        }
+        return myTags;
     }
 
-    private String getDescription(){
-        return mEditDescription.getText().toString();
+    private Date getItemDate() {
+        return itemDate;
     }
 
+    private String getDescription() {
+        String descriptionText = "DIO";
+        if (TextUtils.isEmpty(mEditDescription.getText())) {
+            descriptionText = " ";
+        } else {
+
+            descriptionText = mEditDescription.getText().toString();
+        }
+        return descriptionText;
+    }
+
+    private MoneyEntity createItem() {
+        MoneyEntity item = new MoneyEntity(getAmount(), getItemDate(), getDescription());
+        return item;
+    }
+
+    /*cattura la data selezionata con il datePicker*/
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DATE, dayOfMonth);
+
+        java.util.Date utilDate = cal.getTime();
+        setItemDate(utilDate);
+        setTextDate();
+
+    }
+
+    public void testTags(View v) {
+        getTags();
+    }
 }

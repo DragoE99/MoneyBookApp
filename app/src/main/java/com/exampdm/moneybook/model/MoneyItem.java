@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface MoneyItem {
 
-    int getId();
+    long getId();
     double getAmount();
     Date getItemDate();
     String getDescription();

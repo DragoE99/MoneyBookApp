@@ -17,8 +17,8 @@ import java.util.Locale;
 @Entity(tableName = "money_item")
 public class MoneyEntity implements MoneyItem {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    private long id;
 
     @NonNull
     private double amount;
@@ -26,11 +26,11 @@ public class MoneyEntity implements MoneyItem {
     private String description;
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -72,21 +72,28 @@ public class MoneyEntity implements MoneyItem {
 
     @Ignore
     public MoneyEntity(double amount, Date itemDate, String description) {
-
+        this.id= itemDate.getTime();
         this.amount = amount;
         this.itemDate = itemDate;
+        this.description = description;
+    }
+    @Ignore
+    public MoneyEntity(double amount,String description ){
+       // this.id= itemDate.getTime();
+        this.amount = amount;
+        this.itemDate = new Date();
         this.description = description;
     }
 
     @Ignore
     public  MoneyEntity(double newAmount){
+        //this.id= itemDate.getTime();
         this.amount= newAmount;
         this.itemDate= new Date();
 
     }
    public MoneyEntity(MoneyItem item){
-
-       this.id = item.getId();
+      // this.id= itemDate.getTime();
        this.amount = item.getAmount();
        this.itemDate = item.getItemDate();
        this.description = item.getDescription();

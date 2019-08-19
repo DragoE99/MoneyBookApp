@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.exampdm.moneybook.UI.MoneyItemAdapter;
 import com.exampdm.moneybook.UI.SwipeToDeleteCallback;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
+import com.exampdm.moneybook.db.entity.MoneyTagJoin;
+import com.exampdm.moneybook.db.entity.TagEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private MoneyViewModel mMoneyViewModel;
+
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -52,6 +55,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MoneyEntity> moneys) {
                 adapter.setMoney(moneys);
+            }
+        });
+        mMoneyViewModel.getAllTags().observe(this, new Observer<List<TagEntity>>() {
+            @Override
+            public void onChanged(List<TagEntity> tags) {
+                adapter.setTags(tags);
+                mMoneyViewModel.updtTagList();
+            }
+        });
+        mMoneyViewModel.getAllMjT().observe(this, new Observer<List<MoneyTagJoin>>() {
+            @Override
+            public void onChanged(List<MoneyTagJoin> moneyTagJoins) {
+                adapter.setMjT(moneyTagJoins);
             }
         });
 
@@ -97,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode,data);
         if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK ){
-            MoneyEntity moneyEntity= new MoneyEntity(data.getDoubleExtra(NewItemActivity.EXTRA_REPLY,0));
-            mMoneyViewModel.insert(moneyEntity);
+           // MoneyEntity moneyEntity= new MoneyEntity(data.getDoubleExtra(NewItemActivity.EXTRA_REPLY,0));
+            //mMoneyViewModel.insert(moneyEntity);
         }else {
             Toast.makeText(
                     getApplicationContext(),
