@@ -21,6 +21,9 @@ public interface TagDAO {
     @Delete
     void deleteTag(TagEntity tagItem);
 
+    @Query("DELETE FROM item_tag")
+    void deleteAllTag();
+
     @Query("SELECT *FROM item_tag")
     LiveData<List<TagEntity>> getAllTag();
 

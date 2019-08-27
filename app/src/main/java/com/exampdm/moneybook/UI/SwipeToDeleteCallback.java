@@ -1,8 +1,12 @@
 package com.exampdm.moneybook.UI;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.exampdm.moneybook.R;
 
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     private MoneyItemAdapter mAdapter;
@@ -20,6 +24,11 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction){
         int position=viewHolder.getAdapterPosition();
-        mAdapter.deleteItem(position);
+        if(direction==ItemTouchHelper.LEFT){
+
+        }else {
+            mAdapter.deleteItem(position);
+        }
+
     }
 }

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NewItemActivity">
+    tools:context=".NewItemActivity"
+    android:windowSoftInputMode="stateHidden">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutAmountTextView"
@@ -60,12 +61,6 @@
         android:id="@+id/saveItemButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/saveButton" />
+        android:text="@string/saveButton"/>
 
-    <Button
-        android:id="@+id/testTags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="testTags"
-        android:text="Button" />
 </LinearLayout>

@@ -1,10 +1,12 @@
 package com.exampdm.moneybook.UI;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -17,6 +19,7 @@ import com.exampdm.moneybook.db.entity.MoneyEntity;
 import com.exampdm.moneybook.db.entity.MoneyTagJoin;
 import com.exampdm.moneybook.db.entity.TagEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.util.Collections;
@@ -32,6 +35,7 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
         private final TextView descItemView;
         private final TextView tagsView;
 
+
         private MoneyViewHolder(View itemView) {
             super(itemView);
             moneyItemView = itemView.findViewById(R.id.itemAmountNumber);
@@ -46,7 +50,10 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
     private List<MoneyEntity> mMoney = Collections.emptyList();
     private List<TagEntity> mTags = Collections.emptyList();
     private List<MoneyTagJoin> mAllMjT = Collections.emptyList();
+    private View mItemView;
 
+    private MoneyEntity recentlyDeletedItem;
+    private int mRecentlyDeletedItemPosition;
     private MoneyViewModel mMoneyViewModel;
 
 
@@ -59,6 +66,7 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
     @Override
     public MoneyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.movement_view, parent, false);
+        mItemView=itemView;
         return new MoneyViewHolder(itemView);
     }
 
@@ -69,8 +77,6 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
         holder.moneyItemView.setText(current.getStringAmount());
         holder.dateItemView.setText(current.getStringDate());
         holder.descItemView.setText(current.getDescription());
-
-
     }
 
     private String tagToString(MoneyEntity current) {
@@ -119,10 +125,34 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
 
     public void deleteItem(int position) {
 
+        mRecentlyDeletedItemPosition=position;
+        recentlyDeletedItem = mMoney.get(position);
         mMoneyViewModel.delete(mMoney.get(position));
         mMoney.remove(position);
         notifyItemRemoved(position);
+        showUndoSnackbar();
     }
+
+    private void showUndoSnackbar() {
+        View view = mItemView.findViewById(R.id.linear_layout_movment_view);
+        Snackbar snackbar = Snackbar.make(view, R.string.snack_bar_text,
+                Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snack_bar_undo, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MoneyItemAdapter.this.undoDelete();
+            }
+        });
+        snackbar.show();
+    }
+
+    private void undoDelete() {
+        mMoney.add(recentlyDeletedItem);
+        mMoneyViewModel.insert(recentlyDeletedItem);
+        notifyItemInserted(mRecentlyDeletedItemPosition);
+    }
+
+
 
 }
 

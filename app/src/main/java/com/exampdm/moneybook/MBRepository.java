@@ -158,6 +158,41 @@ public class MBRepository {
             return null;
         }
     }
+    public void deleteAllTag() {
+        new deleteAllTagAsyncTask(mTagDAO).execute();
+    }
+
+    private static class deleteAllTagAsyncTask extends AsyncTask<TagEntity, Void, Void> {
+        private TagDAO mAsyncTaskDao;
+
+        deleteAllTagAsyncTask(TagDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final TagEntity... params) {
+            mAsyncTaskDao.deleteAllTag();
+            return null;
+        }
+    }
+
+    public void deleteAllItemTags() {
+        new deleteAllItemTagsAsync(mItemTagDao).execute();
+    }
+
+    private static class deleteAllItemTagsAsync extends AsyncTask<MoneyTagJoin, Void, Void> {
+        private MoneyTagJoinDAO mAsyncTaskDao;
+
+        deleteAllItemTagsAsync(MoneyTagJoinDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final MoneyTagJoin... params) {
+            mAsyncTaskDao.deleteAllItemTags();
+            return null;
+        }
+    }
 
     public void insertAllTags(TagEntity[] tags) {
         new insertAllTagsAsync(mTagDAO).execute(tags);
@@ -210,6 +245,28 @@ public class MBRepository {
         @Override
         protected Void doInBackground(final MoneyTagJoin... params) {
             mAsyncDao.insertItemTag(params[0]);
+            return null;
+        }
+    }
+
+    public void clearItemTags() {
+        new clearItemTagsAsync(mItemTagDao).execute();
+    }
+
+    private static class clearItemTagsAsync extends AsyncTask<MoneyTagJoin, Void, Void> {
+        private MoneyTagJoinDAO mAsyncTaskDao;
+
+        clearItemTagsAsync(MoneyTagJoinDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final MoneyTagJoin... params) {
+            List<MoneyTagJoin> oldTags= mAsyncTaskDao.getOldItemTags();
+            for (MoneyTagJoin currentTag: oldTags
+                 ) {
+                mAsyncTaskDao.clearItemTags(currentTag.getId());
+            }
             return null;
         }
     }

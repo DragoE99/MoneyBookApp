@@ -1,5 +1,6 @@
 package com.exampdm.moneybook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +11,6 @@ import com.exampdm.moneybook.db.entity.MoneyTagJoin;
 import com.exampdm.moneybook.db.entity.TagEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
 
             // Delete the existing data
-            mMoneyViewModel.deleteAllMoney();
+            mMoneyViewModel.clearAllData();
             return true;
         }
 
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode,data);
+
         if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK ){
            // MoneyEntity moneyEntity= new MoneyEntity(data.getDoubleExtra(NewItemActivity.EXTRA_REPLY,0));
             //mMoneyViewModel.insert(moneyEntity);
@@ -122,4 +124,11 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        mMoneyViewModel.clearItemTags();
+    }
+
 }

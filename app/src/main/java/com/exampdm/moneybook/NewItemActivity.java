@@ -5,10 +5,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -59,6 +61,10 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View v) {
                 Intent replyIntent = new Intent();
+
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
                 if (TextUtils.isEmpty(mEditAmount.getText())) {
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
@@ -176,7 +182,4 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
 
     }
 
-    public void testTags(View v) {
-        getTags();
-    }
 }

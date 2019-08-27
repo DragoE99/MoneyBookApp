@@ -25,7 +25,7 @@ public class MoneyViewModel extends AndroidViewModel {
         mRepository = new MBRepository(application);
         mAllMoney = mRepository.getAllMoney();
         mAllTags = mRepository.getAllTags();
-        mAllMjT= mRepository.getAllMjT();
+        mAllMjT = mRepository.getAllMjT();
     }
 
     public LiveData<List<TagEntity>> getAllTags() {
@@ -35,7 +35,10 @@ public class MoneyViewModel extends AndroidViewModel {
     public LiveData<List<MoneyEntity>> getAllMoney() {
         return mAllMoney;
     }
-    public LiveData<List<MoneyTagJoin>> getAllMjT(){return mAllMjT;}
+
+    public LiveData<List<MoneyTagJoin>> getAllMjT() {
+        return mAllMjT;
+    }
 
     public List<String> getTagList() {
         return mRepository.getTagList();
@@ -55,6 +58,12 @@ public class MoneyViewModel extends AndroidViewModel {
 
     public void deleteAllMoney() {
         mRepository.deleteAllMoney();
+    }
+
+    public void clearAllData() {
+        mRepository.deleteAllMoney();
+        mRepository.deleteAllItemTags();
+        mRepository.deleteAllTag();
     }
 
     public void insertTag(TagEntity tag) {
@@ -86,6 +95,9 @@ public class MoneyViewModel extends AndroidViewModel {
         for (MoneyTagJoin mtj : itemTags) {
             insertItemTag(mtj);
         }
+    }
+    public void clearItemTags(){
+        mRepository.clearItemTags();
     }
 
 

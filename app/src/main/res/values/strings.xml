@@ -8,4 +8,6 @@
     <string name="saveButton">SAVE</string>
     <string name="empty_not_saved">Item not saved because is empty or zero</string>
     <string name="clear_all_data">delete_all_data</string>
+    <string name="snack_bar_text">1 Item deleted</string>
+    <string name="snack_bar_undo">UNDO</string>
 </resources>
