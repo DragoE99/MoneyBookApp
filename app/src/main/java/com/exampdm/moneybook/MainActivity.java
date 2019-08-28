@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         mMoneyViewModel.getAllMoney().observe(this, new Observer<List<MoneyEntity>>() {
             @Override
             public void onChanged(List<MoneyEntity> moneys) {

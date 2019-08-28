@@ -105,5 +105,4 @@ public class MoneyViewModel extends AndroidViewModel {
         tagListStr = getTagList();
     }
 
-
 }

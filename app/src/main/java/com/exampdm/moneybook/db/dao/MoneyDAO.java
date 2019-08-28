@@ -18,6 +18,7 @@ public interface MoneyDAO {
     @Query("SELECT * FROM money_item ORDER BY itemDate")
     LiveData<List<MoneyEntity>> getAllMoney();
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllItems(List<MoneyEntity> items);
 

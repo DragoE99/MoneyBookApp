@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.exampdm.moneybook.UI.DatePickerFragment;
+import com.exampdm.moneybook.UI.MoneyItemAdapter;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 import com.exampdm.moneybook.db.entity.MoneyTagJoin;
 import com.exampdm.moneybook.db.entity.TagEntity;
@@ -43,6 +44,8 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
     private TagEntity[] myTags;
     private MoneyEntity item;
     private MoneyTagJoin[] itemTags;
+    private MoneyEntity updtItem;
+    private List<String> updtItemTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,18 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
         mEditTags = findViewById(R.id.insertTagsTextView);
         mEditDate = findViewById(R.id.insertDateView);
 
+        Intent i = getIntent();
+        if(i.getStringExtra(MoneyItemAdapter.EXTRA_AMOUNT)!=null){
+
+            mEditAmount.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_AMOUNT));
+            mEditDate.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_DATE));
+            mEditTags.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_TAGS));
+            mEditDescription.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_DESCRIPTION));
+
+        }
 
         final MoneyViewModel mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
+
 
         final Button button = findViewById(R.id.saveItemButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +192,13 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
         java.util.Date utilDate = cal.getTime();
         setItemDate(utilDate);
         setTextDate();
+
+    }
+
+    private void setTextViewFields(){
+        mEditAmount.setText(updtItem.getStringAmount());
+        mEditDate.setText(updtItem.getStringDate());
+        mEditDescription.setText(updtItem.getDescription());
 
     }
 

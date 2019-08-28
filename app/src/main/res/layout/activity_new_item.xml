@@ -8,7 +8,7 @@
     android:windowSoftInputMode="stateHidden">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutAmountTextView"
+        android:id="@+id/insert_amountLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,7 +21,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutTagView"
+        android:id="@+id/insertTagsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,7 +33,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutDate"
+        android:id="@+id/insertDateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/dateHint">
@@ -46,7 +46,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutDescription"
+        android:id="@+id/updtDescriptionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/descriptionHint">

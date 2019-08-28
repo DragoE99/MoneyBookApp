@@ -26,6 +26,7 @@ public class MBRepository {
     private static List<String> tagString;
 
 
+
     public MBRepository(Application application) {
 
         AppDatabase db = AppDatabase.getInstance(application);
@@ -36,7 +37,9 @@ public class MBRepository {
         mAllTags = mTagDAO.getAllTag();
         mAllMTJ= mItemTagDao.getItemsTags();
 
+
     }
+
 
     public LiveData<List<MoneyEntity>> getAllMoney() {
         return mAllMoney;
