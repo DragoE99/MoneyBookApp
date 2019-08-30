@@ -5,6 +5,7 @@
     android:id="@+id/linearCaontenMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#cfd8dc"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
@@ -13,5 +14,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:clipChildren="true"
+        android:overScrollMode="ifContentScrolls"
+        app:reverseLayout="false"
+        app:stackFromEnd="true" />
 </LinearLayout>

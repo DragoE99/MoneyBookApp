@@ -1,6 +1,6 @@
 package com.exampdm.moneybook;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +13,7 @@ import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final MoneyItemAdapter adapter = new MoneyItemAdapter(this, mMoneyViewModel);
         recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -115,10 +117,7 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode,data);
 
-        if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK ){
-           // MoneyEntity moneyEntity= new MoneyEntity(data.getDoubleExtra(NewItemActivity.EXTRA_REPLY,0));
-            //mMoneyViewModel.insert(moneyEntity);
-        }else {
+        if (requestCode != NEW_WORD_ACTIVITY_REQUEST_CODE || resultCode != RESULT_OK) {
             Toast.makeText(
                     getApplicationContext(),
                     R.string.empty_not_saved,

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface MoneyDAO {
 
-    @Query("SELECT * FROM money_item ORDER BY itemDate")
+    @Query("SELECT * FROM money_item ORDER BY itemDate DESC")
     LiveData<List<MoneyEntity>> getAllMoney();
 
 

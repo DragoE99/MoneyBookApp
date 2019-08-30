@@ -44,7 +44,7 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
             dateItemView = itemView.findViewById(R.id.itemDate);
             descItemView = itemView.findViewById(R.id.itemDescription);
             tagsView = itemView.findViewById(R.id.itemTagText);
-            mItemView = itemView;
+            mItemView=itemView;
         }
     }
 
@@ -59,12 +59,18 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
     private MoneyEntity recentlyDeletedItem;
     private int mRecentlyDeletedItemPosition;
     private MoneyViewModel mMoneyViewModel;
+    private final int positiveAmountColor;
+    private final int negativeAmountColor;
+
+    private ViewGroup test;
 
 
     public MoneyItemAdapter(Context context, MoneyViewModel moneyViewModel) {
         currentContext = context;
         mInflater = LayoutInflater.from(context);
         mMoneyViewModel = moneyViewModel;
+        positiveAmountColor=currentContext.getResources().getColor(R.color.positiveAmount);
+        negativeAmountColor = currentContext.getResources().getColor(R.color.negativeAmount);
     }
 
     @NonNull
@@ -72,16 +78,27 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
     public MoneyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.movement_view, parent, false);
 
+        test=parent;
         return new MoneyViewHolder(itemView);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MoneyViewHolder holder, int position) {
         MoneyEntity current = mMoney.get(position);
         holder.tagsView.setText(tagToString(current));
         holder.moneyItemView.setText(current.getStringAmount());
+        if(current.getAmount()>0) {
+            holder.moneyItemView.setTextColor(positiveAmountColor);
+        }else {
+            holder.moneyItemView.setTextColor(negativeAmountColor);
+        }
         holder.dateItemView.setText(current.getStringDate());
         holder.descItemView.setText(current.getDescription());
+    }
+
+    public Context getContext() {
+        return currentContext;
     }
 
     private String tagToString(MoneyEntity current) {
@@ -137,12 +154,16 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
         mMoneyViewModel.delete(mMoney.get(position));
         mMoney.remove(position);
         notifyItemRemoved(position);
-        showUndoSnackbar();
-        notifyDataSetChanged();
+       showUndoSnackbar();
+       notifyDataSetChanged();
     }
 
     private void showUndoSnackbar() {
-        View view = mItemView.findViewById(R.id.linear_layout_movment_view);
+        //mItemView.findViewById(R.id.linear_layout_movment_view);
+//test.getFocusedChild().findViewById(R.id.linear_layout_movment);
+
+
+        View view =test.findFocus().findViewById(R.id.linear_layout_movment);
         Snackbar snackbar = Snackbar.make(view, R.string.snack_bar_text,
                 Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.snack_bar_undo, new View.OnClickListener() {

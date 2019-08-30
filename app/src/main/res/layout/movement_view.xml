@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linear_layout_movment_view"
+    android:id="@+id/linear_layout_movment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="4dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
         tools:layout_conversion_absoluteHeight="90dp"
         tools:layout_conversion_absoluteWidth="395dp"
         tools:layout_editor_absoluteX="0dp"
@@ -28,43 +31,61 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/itemAmountNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:enabled="false"
-                    android:inputType="numberDecimal"
-                    android:textColor="#E91E63"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:targetApi="o" />
-
-                <TextView
-                    android:id="@+id/itemTagText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#1E88E5" />
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:paddingStart="8dp">
 
                 <TextView
                     android:id="@+id/itemDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingRight="2dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="4dp"
                     android:textAlignment="textStart"
-                    android:textColor="#353232" />
+                    android:textColor="#353232"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/itemTagText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:textAlignment="center"
+                    android:textColor="#1E88E5"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/itemDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:inputType="date"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="2dp"
+                    android:textAlignment="gravity"
+                    android:textSize="14sp" />
+
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/itemDate"
+            <TextView
+                android:id="@+id/itemAmountNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:autofillHints=""
                 android:ems="10"
                 android:enabled="false"
-                android:inputType="date" />
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textAlignment="textEnd"
+                android:textColor="#E91E63"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:targetApi="o" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -46,6 +46,7 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
     private MoneyTagJoin[] itemTags;
     private MoneyEntity updtItem;
     private List<String> updtItemTags;
+    private MoneyViewModel mMoneyViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,39 +67,47 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
 
         }
 
-        final MoneyViewModel mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
+        mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
 
 
         final Button button = findViewById(R.id.saveItemButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent replyIntent = new Intent();
-
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
-                if (TextUtils.isEmpty(mEditAmount.getText())) {
-                    setResult(RESULT_CANCELED, replyIntent);
-                } else {
-
-                    item = createItem();
-                    getTags();
-                    //new MoneyEntity(getAmount(), getDescription());
-                    if (myTags.length != 0) {
-                        mMoneyViewModel.insertAllTags(myTags);
-                    }
-                    if(itemTags.length!=0){
-                        mMoneyViewModel.insertItemTags(itemTags);
-                    }
-                    mMoneyViewModel.insert(item);
-
-                    setResult(RESULT_OK, replyIntent);
-                }
-                finish();
-
+                saveButtonClicked();
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        saveButtonClicked();
+    }
+
+    private void saveButtonClicked(){
+        Intent replyIntent = new Intent();
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        if (TextUtils.isEmpty(mEditAmount.getText())) {
+            setResult(RESULT_CANCELED, replyIntent);
+        } else {
+
+            item = createItem();
+            getTags();
+            //new MoneyEntity(getAmount(), getDescription());
+            if (myTags.length != 0) {
+                mMoneyViewModel.insertAllTags(myTags);
+            }
+            if(itemTags.length!=0){
+                mMoneyViewModel.insertItemTags(itemTags);
+            }
+            mMoneyViewModel.insert(item);
+
+            setResult(RESULT_OK, replyIntent);
+        }
+        finish();
+
     }
 
     public void showDatePickerDialog(View v) {
@@ -120,9 +129,10 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
 
     private double getAmount() {
         double current;
+        String temp=mEditAmount.getText().toString().replace(',','.');
         if (TextUtils.isEmpty(mEditAmount.getText())) {
             current = 0;
-        } else current = Double.parseDouble(String.valueOf(mEditAmount.getText()));
+        } else current = Double.parseDouble(temp);
       /*  try {
             current= NumberFormat
                     .getInstance()

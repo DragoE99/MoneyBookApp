@@ -60,7 +60,18 @@ public class MoneyEntity implements MoneyItem {
 
     @Ignore
     public String getStringAmount(){
-        return NumberFormat.getInstance().format(this.amount);
+        String item =NumberFormat.getInstance().format(this.amount);
+
+        if(!item.contains(",")){
+            return item+",00";
+        }
+        String[] splitter=item.split(",");
+        if(splitter[1].length()==2){
+            return item;
+        }else if(splitter[1].length()==1){
+            return item+"0";
+        }
+        return item;
     }
 
     @Ignore
