@@ -1,9 +1,5 @@
 package com.exampdm.moneybook;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +12,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.exampdm.moneybook.UI.DatePickerFragment;
 import com.exampdm.moneybook.UI.MoneyItemAdapter;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
@@ -24,13 +24,12 @@ import com.exampdm.moneybook.db.entity.TagEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class NewItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -87,7 +86,7 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
         Intent replyIntent = new Intent();
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
 
         if (TextUtils.isEmpty(mEditAmount.getText())) {
             setResult(RESULT_CANCELED, replyIntent);
@@ -150,7 +149,6 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
         if (TextUtils.isEmpty(mEditTags.getText())) {
             myTags = new TagEntity[0];
             itemTags=new MoneyTagJoin[0];
-            return;
         } else {
             String temp = mEditTags.getText().toString();
             tags = temp.split("\\s");
@@ -174,7 +172,7 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private String getDescription() {
-        String descriptionText = "DIO";
+        String descriptionText;
         if (TextUtils.isEmpty(mEditDescription.getText())) {
             descriptionText = " ";
         } else {
@@ -185,8 +183,7 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private MoneyEntity createItem() {
-        MoneyEntity item = new MoneyEntity(getAmount(), getItemDate(), getDescription());
-        return item;
+        return new MoneyEntity(getAmount(), getItemDate(), getDescription());
     }
 
     /*cattura la data selezionata con il datePicker*/
@@ -202,13 +199,6 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
         java.util.Date utilDate = cal.getTime();
         setItemDate(utilDate);
         setTextDate();
-
-    }
-
-    private void setTextViewFields(){
-        mEditAmount.setText(updtItem.getStringAmount());
-        mEditDate.setText(updtItem.getStringDate());
-        mEditDescription.setText(updtItem.getDescription());
 
     }
 

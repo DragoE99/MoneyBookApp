@@ -66,8 +66,7 @@ public class MBRepository {
 
         @Override
         protected List<String> doInBackground(Void... voids) {
-            List<String> temp = mAsyncDao.getTagList();
-            return temp;
+            return mAsyncDao.getTagList();
         }
 
         @Override
