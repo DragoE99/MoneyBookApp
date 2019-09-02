@@ -14,8 +14,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        app:cardCornerRadius="8dp"
         app:cardElevation="16dp"
         app:cardMaxElevation="16dp"
+        app:contentPadding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -53,20 +55,18 @@
                     android:hint="@string/tagsHint" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/insertDateLayout"
+            <TextView
+                android:id="@+id/insertDateView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:hint="@string/dateHint">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/insertDateView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="showDatePickerDialog" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:drawableEnd="@drawable/ic_my_calendar_24px"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical|end"
+                android:includeFontPadding="true"
+                android:onClick="showDatePickerDialog"
+                android:text="@string/dateHint"
+                android:textAlignment="gravity"
+                android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/updtDescriptionLayout"

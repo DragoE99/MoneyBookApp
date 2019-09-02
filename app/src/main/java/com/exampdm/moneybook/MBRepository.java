@@ -108,7 +108,7 @@ public class MBRepository {
 
     public void insert(MoneyEntity money) {
         new insertAsyncTask(mMoneyDAO).execute(money);
-    }
+}
 
     private static class insertAsyncTask extends AsyncTask<MoneyEntity, Void, Void> {
         private MoneyDAO mAsyncTaskDao;

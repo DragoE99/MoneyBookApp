@@ -76,7 +76,7 @@ public class MoneyEntity implements MoneyItem {
 
     @Ignore
     public String getStringDate(){
-        DateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy",
+        DateFormat dateFormat = new SimpleDateFormat ("dd MMM yyyy",
         Locale.ITALIAN);
         return dateFormat.format(this.itemDate);
     }

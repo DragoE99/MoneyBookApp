@@ -33,4 +33,10 @@ public interface MoneyDAO {
 
     @Query("DELETE FROM MONEY_ITEM")
     void deleteAllItem();
+
+    @Query("select * from money_item where amount>0")
+    List<MoneyEntity> getAllPositiveAmount();
+
+    @Query("select * from money_item where amount<0")
+    List<MoneyEntity> getAllNegativeAmount();
 }

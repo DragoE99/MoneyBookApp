@@ -24,6 +24,7 @@ import com.exampdm.moneybook.db.entity.TagEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,6 +64,13 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
             mEditDate.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_DATE));
             mEditTags.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_TAGS));
             mEditDescription.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_DESCRIPTION));
+
+            try {
+                itemDate =  new SimpleDateFormat ("dd MMM yyyy",
+                        Locale.getDefault()).parse(i.getStringExtra(MoneyItemAdapter.EXTRA_DATE));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
         }
 

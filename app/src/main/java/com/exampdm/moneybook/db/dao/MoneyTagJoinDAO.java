@@ -16,6 +16,10 @@ public interface MoneyTagJoinDAO {
     void insertItemTag(MoneyTagJoin moneyTagJoin);
 
 
+    @Insert
+    void insertAll(List<MoneyTagJoin> itemTags);
+
+
   /*  @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM money_item INNER JOIN item_tag_join ON money_item.id = item_tag_join.itemId WHERE item_tag_join.tagId = :tagId")
     List<MoneyEntity> getMoneyForTag(final int tagId);*/
