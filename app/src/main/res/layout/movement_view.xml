@@ -32,8 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="4dp"
-                android:paddingStart="8dp">
+                android:padding="4dp">
 
                 <TextView
                     android:id="@+id/itemDescription"
@@ -41,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="4dp"
+                    android:ellipsize="none"
                     android:textAlignment="textStart"
                     android:textColor="#353232"
                     android:textSize="18sp" />
@@ -61,7 +61,6 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:enabled="false"
-                    android:inputType="date"
                     android:paddingStart="4dp"
                     android:paddingEnd="2dp"
                     android:textAlignment="gravity"
@@ -74,15 +73,14 @@
                 android:id="@+id/itemAmountNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
+                android:layout_gravity="center_vertical|end"
                 android:autofillHints=""
+                android:ellipsize="none"
                 android:ems="10"
                 android:enabled="false"
-                android:gravity="center"
-                android:inputType="numberDecimal"
+                android:gravity="center|end"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:textAlignment="textEnd"
                 android:textColor="#E91E63"
                 android:textSize="24sp"
                 android:textStyle="bold"

@@ -60,7 +60,17 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
         Intent i = getIntent();
         if(i.getStringExtra(MoneyItemAdapter.EXTRA_AMOUNT)!=null){
 
-            mEditAmount.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_AMOUNT));
+            String tempAmount=i.getStringExtra(MoneyItemAdapter.EXTRA_AMOUNT);
+
+            for(int j=3; (tempAmount.length()-j)>0; j=j+3){
+            if(tempAmount.contains(".")){
+                StringBuilder build = new StringBuilder(tempAmount);
+                build.deleteCharAt(tempAmount.indexOf('.'));
+                tempAmount=build.toString();
+            }
+            }
+
+            mEditAmount.setText(tempAmount);
             mEditDate.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_DATE));
             mEditTags.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_TAGS));
             mEditDescription.setText(i.getStringExtra(MoneyItemAdapter.EXTRA_DESCRIPTION));
@@ -137,6 +147,7 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
     private double getAmount() {
         double current;
         String temp=mEditAmount.getText().toString().replace(',','.');
+
         if (TextUtils.isEmpty(mEditAmount.getText())) {
             current = 0;
         } else current = Double.parseDouble(temp);

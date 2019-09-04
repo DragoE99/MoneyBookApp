@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/clear_all_data"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/statistic_toolbalr_item"
+        android:icon="@drawable/ic_statistic24px"
+        android:title="@string/statistics"
+        app:showAsAction="ifRoom" />
 </menu>

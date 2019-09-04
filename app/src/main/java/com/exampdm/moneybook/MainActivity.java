@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.exampdm.moneybook.UI.MoneyItemAdapter;
+import com.exampdm.moneybook.UI.StatisicActivity;
 import com.exampdm.moneybook.UI.SwipeToDeleteCallback;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 import com.exampdm.moneybook.db.entity.MoneyTagJoin;
@@ -108,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
             // Delete the existing data
             mMoneyViewModel.clearAllData();
             return true;
+        }else if(id==R.id.statistic_toolbalr_item){
+            Intent intent = new Intent(MainActivity.this, StatisicActivity.class);
+            startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);

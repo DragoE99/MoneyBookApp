@@ -10,4 +10,13 @@
     <string name="clear_all_data">delete_all_data</string>
     <string name="snack_bar_text">1 Item deleted</string>
     <string name="snack_bar_undo">UNDO</string>
+
+    <string name="span_TextView_frgmBalance">Span</string>
+    <string name="_from_span_start">From</string>
+    <string name="to_span_end">To</string>
+    <string name="balance">Balance</string>
+    <string name="income_text_view">Income:</string>
+    <string name="expanses">Expanses:</string>
+    <string name="total_string">Total:</string>
+    <string name="statistics">Statistics</string>
 </resources>
