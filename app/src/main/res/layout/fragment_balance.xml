@@ -4,15 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroung"
     android:orientation="vertical"
     tools:context=".UI.BalanceFragment">
 
-
-    <TextView
-        android:id="@+id/span_frgm_balance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/span_TextView_frgmBalance" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,26 +31,20 @@
             android:text="@string/to_span_end" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/balance__textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/income_text"
+            android:id="@+id/income_String"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/income_text_view" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/income_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -68,7 +57,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/expanses_view"
+            android:id="@+id/expanses_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -101,5 +90,17 @@
             android:layout_weight="1"
             android:text="@string/total_string" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/balance__textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/balance" />
+
+    <TextView
+        android:id="@+id/span_frgm_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/span_TextView_frgmBalance" />
 
 </LinearLayout>

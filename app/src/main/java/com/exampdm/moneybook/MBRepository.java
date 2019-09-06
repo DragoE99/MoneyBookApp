@@ -12,7 +12,9 @@ import com.exampdm.moneybook.db.dao.TagDAO;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 import com.exampdm.moneybook.db.entity.MoneyTagJoin;
 import com.exampdm.moneybook.db.entity.TagEntity;
+import com.exampdm.moneybook.model.MoneyItem;
 
+import java.util.Date;
 import java.util.List;
 
 public class MBRepository {
@@ -22,8 +24,10 @@ public class MBRepository {
     private LiveData<List<MoneyEntity>> mAllMoney;
     private LiveData<List<TagEntity>> mAllTags;
     private LiveData<List<MoneyTagJoin>> mAllMTJ;
+    private static List<MoneyEntity> itemBetweenRange;
     private static List<String> mItemTags;
     private static List<String> tagString;
+    private static Double myAmount;
 
 
 
@@ -270,6 +274,30 @@ public class MBRepository {
                 mAsyncTaskDao.clearItemTags(currentTag.getId());
             }
             return null;
+        }
+    }
+
+
+    public  List<MoneyEntity> getItemBeetweenDate(Date fromDate, Date toDate){
+        Date[] arrayDate= {fromDate,toDate};
+       new getItemBetweenDateAsync(mMoneyDAO).execute(arrayDate);
+        return itemBetweenRange;
+    }
+    private static class getItemBetweenDateAsync extends AsyncTask<Date[], Void, List<MoneyEntity>>{
+
+        private MoneyDAO mAsyncTaskDao;
+
+        private getItemBetweenDateAsync(MoneyDAO mMoneyDAO) {
+            mAsyncTaskDao=mMoneyDAO;
+        }
+
+        @Override
+        protected List<MoneyEntity> doInBackground(Date[]... dates) {
+            return mAsyncTaskDao.getItemBeetweenDate(dates[0][0], dates[0][1]);
+        }
+        @Override
+        protected void onPostExecute(List<MoneyEntity> element){
+            itemBetweenRange=element;
         }
     }
 

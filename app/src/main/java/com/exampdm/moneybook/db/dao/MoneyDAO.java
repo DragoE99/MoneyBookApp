@@ -10,6 +10,7 @@ import androidx.room.Update;
 
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -34,9 +35,7 @@ public interface MoneyDAO {
     @Query("DELETE FROM MONEY_ITEM")
     void deleteAllItem();
 
-    @Query("select * from money_item where amount>0")
-    List<MoneyEntity> getAllPositiveAmount();
+    @Query("select * from money_item where itemDate BETWEEN :fromDate AND :toDate")
+    List<MoneyEntity> getItemBeetweenDate(Date fromDate, Date toDate);
 
-    @Query("select * from money_item where amount<0")
-    List<MoneyEntity> getAllNegativeAmount();
 }

@@ -5,20 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/backgroung"
     android:orientation="vertical"
-    tools:context=".UI.StatisicActivity">
+    android:padding="4dp"
+    tools:context=".UI.ItemRangeFragment">
 
-    <fragment
-        android:id="@+id/fragment_container"
-        android:name="com.exampdm.moneybook.UI.BalanceFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp" />
-
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.exampdm.moneybook.UI.ItemRangeFragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_range_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
 </LinearLayout>
