@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
@@ -13,16 +12,16 @@ import com.exampdm.moneybook.MBRepository;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class StatisticViewModel extends AndroidViewModel {
     private MBRepository mRepository;
-
     private MutableLiveData<Date> fromDate;
     private MutableLiveData<Date> toDate;
-    private List<MoneyEntity> itemsInRange;
+    private List<MoneyEntity> allItems;
     private MutableLiveData<List<MoneyEntity>> mutableItemInRange;
 
     private MutableLiveData<Double> income;
@@ -35,20 +34,26 @@ public class StatisticViewModel extends AndroidViewModel {
     }
 
     public void setMutableItemInRange(){
-        if(mRepository.getItemBeetweenDate(fromDate.getValue(),toDate.getValue())!=null){
-            mutableItemInRange.setValue(mRepository.getItemBeetweenDate(fromDate.getValue(),toDate.getValue()));
-        }else {
-            mutableItemInRange= new MutableLiveData<>();
+        List<MoneyEntity> items = new ArrayList<>();
+        if(allItems!=null) {
+            for (MoneyEntity item : allItems
+            ) {
+                if (item.getItemDate().after(getStartFromDate())
+                        && item.getItemDate().before(getFinishToDate())) {
+                    items.add(item);
+                }
+            }
+            setBalance(items);
+            mutableItemInRange.setValue(items);
         }
     }
-    public LiveData<List<MoneyEntity>> getItemBeetweenDate(){
-       if(mutableItemInRange==null){
-            return new MutableLiveData<>();
+
+    public MutableLiveData<List<MoneyEntity>> getMutableItemInRange(){
+        if(mutableItemInRange==null){
+            mutableItemInRange=new MutableLiveData<>();
         }
         return mutableItemInRange;
     }
-
-
     public MutableLiveData<Date> getFromDate() {
         if(fromDate==null){
             fromDate= new MutableLiveData<>();
@@ -66,18 +71,16 @@ public class StatisticViewModel extends AndroidViewModel {
     }
 
     public void setFromDate(Date date){
-        setMutableItemInRange();
         fromDate.setValue(date);
     }
 
     public void setToDate(Date date){
-        setMutableItemInRange();
         toDate.setValue(date);
     }
 
 
-    public void setItemeInRange(List<MoneyEntity> itemeInRange) {
-        this.itemsInRange = itemeInRange;
+    public void setAllItems(List<MoneyEntity> items) {
+        this.allItems = items;
     }
     public MutableLiveData<Double> getIncome() {
         if(income==null){
@@ -93,11 +96,11 @@ public class StatisticViewModel extends AndroidViewModel {
         return expenses;
     }
 
-    public void setBalance() {
+    public void setBalance(List<MoneyEntity> items) {
         double positive=(double)0;
         double negative= (double)0;
-        if(itemsInRange!=null) {
-            for (MoneyEntity item : itemsInRange
+        if(items !=null) {
+            for (MoneyEntity item : items
             ) {
                 if (item.getAmount() > 0) {
                     positive = positive + item.getAmount();
@@ -126,4 +129,16 @@ public class StatisticViewModel extends AndroidViewModel {
         return cal.getTime();
     }
 
+    private Date getStartFromDate(){
+        Calendar cal= Calendar.getInstance();
+        cal.setTime(fromDate.getValue());
+        cal.add(Calendar.DAY_OF_MONTH,-1);
+        return cal.getTime();
+    }
+    private Date getFinishToDate(){
+        Calendar cal= Calendar.getInstance();
+        cal.setTime(toDate.getValue());
+        cal.add(Calendar.DAY_OF_MONTH,+1);
+        return cal.getTime();
+    }
 }

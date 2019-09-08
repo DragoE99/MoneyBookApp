@@ -50,10 +50,16 @@ public class ItemRangeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        statisticViewModel.getItemBeetweenDate().observe(this, new Observer<List<MoneyEntity>>() {
+        /*statisticViewModel.getItemBeetweenDate().observe(this, new Observer<List<MoneyEntity>>() {
             @Override
             public void onChanged(List<MoneyEntity> moneyEntities) {
                 adapter.setMoney(moneyEntities);
+            }
+        });*/
+        statisticViewModel.getMutableItemInRange().observe(this, new Observer<List<MoneyEntity>>() {
+            @Override
+            public void onChanged(List<MoneyEntity> moneys) {
+                adapter.setMoney(moneys);
             }
         });
         mMoneyViewModel.getAllTags().observe(this, new Observer<List<TagEntity>>() {

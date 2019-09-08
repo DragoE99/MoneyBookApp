@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.exampdm.moneybook.R;
 import com.exampdm.moneybook.db.entity.MoneyEntity;
+import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 import com.exampdm.moneybook.viewmodel.StatisticViewModel;
 
 import java.text.DateFormat;
@@ -42,7 +43,8 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
     private double income;
     private double expenses;
 
-    private StatisticViewModel moneyViewModel;
+    private StatisticViewModel statisticViewModel;
+    private MoneyViewModel moneyViewModel;
 
     public BalanceFragment() {
         // Required empty public constructor
@@ -52,8 +54,6 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
     }
 
@@ -70,42 +70,46 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
         // Inflate the layout for this fragment
         fm = (Objects.requireNonNull(getActivity())).getSupportFragmentManager();
 
-        moneyViewModel = ViewModelProviders.of(getActivity()).get(StatisticViewModel.class);
+        moneyViewModel= ViewModelProviders.of(getActivity()).get(MoneyViewModel.class);
+        statisticViewModel = ViewModelProviders.of(getActivity()).get(StatisticViewModel.class);
 
 
 
 
-        moneyViewModel.getFromDate().observe(this, new Observer<Date>() {
+        statisticViewModel.getFromDate().observe(this, new Observer<Date>() {
             @Override
             public void onChanged(Date date) {
-                moneyViewModel.setMutableItemInRange();
                 dateFromView.setText(dateToString(date));
-                moneyViewModel.setMutableItemInRange();
             }
         });
 
-        moneyViewModel.getToDate().observe(this, new Observer<Date>() {
+        statisticViewModel.getToDate().observe(this, new Observer<Date>() {
             @Override
             public void onChanged(Date date) {
-                moneyViewModel.setMutableItemInRange();
                 dateToView.setText(dateToString(date));
-                moneyViewModel.setMutableItemInRange();
-
             }
         });
 
+        moneyViewModel.getAllMoney().observe(this, new Observer<List<MoneyEntity>>() {
+            @Override
+            public void onChanged(List<MoneyEntity> moneys) {
+                statisticViewModel.setAllItems(moneys);
+                if(moneys!=null){
+                    statisticViewModel.setMutableItemInRange();
+                }
+            }
+        });
 
-        moneyViewModel.getItemBeetweenDate().observe(this, new Observer<List<MoneyEntity>>() {
+      statisticViewModel.getMutableItemInRange().observe(this, new Observer<List<MoneyEntity>>() {
             @Override
             public void onChanged(List<MoneyEntity> moneyEntities) {
                 if(moneyEntities!=null) {
-                    moneyViewModel.setItemeInRange(moneyEntities);
                     itemInRange = moneyEntities;
                 }
             }
         });
 
-        moneyViewModel.getIncome().observe(this, new Observer<Double>() {
+        statisticViewModel.getIncome().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
                 income=aDouble;
@@ -113,9 +117,10 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
             }
         });
 
-        moneyViewModel.getExpenses().observe(this, new Observer<Double>() {
+        statisticViewModel.getExpenses().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double aDouble) {
+
                 expenses=aDouble;
                 expensesTextView.setText(NumberFormat.getInstance().format(expenses));
                 totalTextView.setText(NumberFormat.getInstance().format(income+expenses));
@@ -142,15 +147,7 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
         return view;
     }
 
-    private void updtElement(){
-        moneyViewModel.getItemBeetweenDate().observe(this, new Observer<List<MoneyEntity>>() {
-            @Override
-            public void onChanged(List<MoneyEntity> moneyEntities) {
-                moneyViewModel.setItemeInRange(moneyEntities);
-                itemInRange= moneyEntities;
-            }
-        });
-    }
+
 
     private void showDatePickerDialog(View v) {
         fromToDate = v == dateFromView;
@@ -176,14 +173,15 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
 
         if (fromToDate) {
             dateFromView.setText(temp);
-            moneyViewModel.setFromDate(utilDate);
+            statisticViewModel.setFromDate(utilDate);
 
         } else {
             dateToView.setText(temp);
-            moneyViewModel.setToDate(utilDate);
+            statisticViewModel.setToDate(utilDate);
         }
-        setBalanceFrg();
-        moneyViewModel.setBalance();
+        //setBalanceFrg();
+        //statisticViewModel.setBalance(itemInRange);
+        statisticViewModel.setMutableItemInRange();
 
     }
 
@@ -204,12 +202,12 @@ public class BalanceFragment extends Fragment implements DatePickerDialog.OnDate
                 } else {
                     negative += item.getAmount();
                 }
-                moneyViewModel.setIncome(positive);
-                moneyViewModel.setExpenses(negative);
+                statisticViewModel.setIncome(positive);
+                statisticViewModel.setExpenses(negative);
 
             }
         }
-        moneyViewModel.setBalance();
+        statisticViewModel.setBalance(itemInRange);
     }
 
 }
