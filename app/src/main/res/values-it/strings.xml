@@ -11,8 +11,8 @@
     <string name="descriptionHint">Descrizione</string>
     <string name="empty_not_saved">Elemento non salvato</string>
     <string name="expanses">Spese:</string>
-    <string name="income_text_view">Entrate</string>
-    <string name="reset_button">RESET</string>
+    <string name="income_text_view">Entrate:</string>
+    <string name="reset_button">RESET TAG</string>
     <string name="saveButton">SALVA</string>
     <string name="snack_bar_text">1 Elemento eliminato</string>
     <string name="snack_bar_undo">Annulla</string>

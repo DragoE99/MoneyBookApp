@@ -21,6 +21,6 @@
     <string name="statistics">Statistics</string>
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="reset_button">RESET</string>
+    <string name="reset_button">RESET TAG</string>
     <string name="add_tag_filter">Add tag</string>
 </resources>

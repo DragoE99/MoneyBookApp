@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/ic_my_calendar_24px"
+                    android:gravity="center_vertical"
                     android:text="@string/_from_span_start" />
 
                 <TextView
@@ -45,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/ic_my_calendar_24px"
+                    android:gravity="center_vertical"
                     android:text="@string/to_span_end" />
             </LinearLayout>
 
@@ -93,15 +95,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
 
                 <TextView
                     android:id="@+id/income_String"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/income_text_view" />
+                    android:text="@string/income_text_view"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/income_textView"
@@ -109,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/income_text_view"
-                    android:textAlignment="textEnd"
+                    android:textAlignment="center"
                     android:textColor="@color/positiveAmount"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -118,15 +121,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
 
                 <TextView
                     android:id="@+id/expanses_string"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/expanses" />
+                    android:text="@string/expanses"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/expanses_textView"
@@ -134,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/expanses"
-                    android:textAlignment="textEnd"
+                    android:textAlignment="center"
                     android:textColor="@color/negativeAmount"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -145,15 +149,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp">
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
 
                 <TextView
                     android:id="@+id/Total_balance_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/total_string" />
+                    android:text="@string/total_string"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/total_textView"
@@ -161,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/total_string"
-                    android:textAlignment="textEnd"
+                    android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="18sp" />
             </LinearLayout>
