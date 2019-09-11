@@ -8,19 +8,23 @@
     android:layout_marginStart="4dp"
     android:layout_marginTop="2dp"
     android:layout_marginEnd="4dp"
+    android:clipToPadding="false"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="4dp"
         tools:layout_conversion_absoluteHeight="90dp"
         tools:layout_conversion_absoluteWidth="395dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:layout_conversion_absoluteHeight="90dp"
@@ -29,14 +33,19 @@
             tools:layout_editor_absoluteY="0dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:orientation="vertical"
-                android:padding="4dp">
+                android:padding="4dp"
+                tools:layout_conversion_absoluteHeight="77dp"
+                tools:layout_conversion_absoluteWidth="174dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
 
                 <TextView
                     android:id="@+id/itemDescription"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginBottom="4dp"
@@ -73,17 +82,22 @@
                 android:id="@+id/itemAmountNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:autofillHints=""
                 android:ellipsize="none"
-                android:ems="10"
                 android:enabled="false"
                 android:gravity="center|end"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
+                android:singleLine="true"
                 android:textColor="#E91E63"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="230dp"
+                tools:layout_editor_absoluteX="174dp"
+                tools:layout_editor_absoluteY="23dp"
                 tools:targetApi="o" />
 
         </LinearLayout>

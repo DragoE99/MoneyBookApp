@@ -5,15 +5,18 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.exampdm.moneybook.NewItemActivity;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class DatePickerFragment extends DialogFragment {
     // implements DatePickerDialog.OnDateSetListener
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final Calendar c =Calendar.getInstance();
@@ -21,7 +24,7 @@ public class DatePickerFragment extends DialogFragment {
         int month= c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), (NewItemActivity)getActivity(), year, month, day);
+        return new DatePickerDialog(Objects.requireNonNull(getActivity()), (NewItemActivity)getActivity(), year, month, day);
     }
 
 

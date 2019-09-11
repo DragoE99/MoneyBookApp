@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/backgroung"
     android:orientation="vertical"
-    android:padding="4dp"
+    android:overScrollMode="ifContentScrolls"
     tools:context=".UI.ItemRangeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_range_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:overScrollMode="ifContentScrolls" />
 </LinearLayout>

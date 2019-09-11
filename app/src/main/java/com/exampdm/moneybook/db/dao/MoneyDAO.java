@@ -6,11 +6,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.exampdm.moneybook.db.entity.MoneyEntity;
 
-import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -20,8 +18,8 @@ public interface MoneyDAO {
     LiveData<List<MoneyEntity>> getAllMoney();
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAllItems(List<MoneyEntity> items);
+    /*@Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllItems(List<MoneyEntity> items);*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAnItem(MoneyEntity item);
@@ -29,13 +27,9 @@ public interface MoneyDAO {
     @Delete
     void deleteAnItem(MoneyEntity item);
 
-    @Update
-    void updateItem(MoneyEntity... items);
 
     @Query("DELETE FROM MONEY_ITEM")
     void deleteAllItem();
 
-    @Query("select * from money_item where itemDate BETWEEN :fromDate AND :toDate")
-    List<MoneyEntity> getItemBeetweenDate(Date fromDate, Date toDate);
 
 }

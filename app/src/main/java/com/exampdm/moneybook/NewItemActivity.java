@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -23,9 +25,11 @@ import com.exampdm.moneybook.db.entity.MoneyTagJoin;
 import com.exampdm.moneybook.db.entity.TagEntity;
 import com.exampdm.moneybook.viewmodel.MoneyViewModel;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +45,7 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
     private EditText mEditTags;
     private TextView mEditDate;
     private Date itemDate = new Date();
-    private TagEntity[] myTags;
+    private List<TagEntity> myTags;
     private MoneyEntity item;
     private MoneyTagJoin[] itemTags;
     private MoneyEntity updtItem;
@@ -113,11 +117,13 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
             item = createItem();
             getTags();
             //new MoneyEntity(getAmount(), getDescription());
-            if (myTags.length != 0) {
+            if (myTags.size() != 0) {
                 mMoneyViewModel.insertAllTags(myTags);
             }
             if(itemTags.length!=0){
+                Log.d("inserimetno tag", "#tag inserite "+itemTags.length);
                 mMoneyViewModel.insertItemTags(itemTags);
+
             }
             mMoneyViewModel.insert(item);
 
@@ -165,25 +171,28 @@ public class NewItemActivity extends AppCompatActivity implements DatePickerDial
 
     public void getTags() {
         String[] tags;
+
         if (TextUtils.isEmpty(mEditTags.getText())) {
-            myTags = new TagEntity[0];
+            myTags = new ArrayList<>();
             itemTags=new MoneyTagJoin[0];
         } else {
-            String temp = mEditTags.getText().toString();
+            String temp = mEditTags.getText().toString().toLowerCase(Locale.getDefault());
             tags = temp.split("\\s");
-            myTags = arrayTags(tags);
-            mEditTags.setText(myTags[0].getTag());
+            arrayTags(tags);
+            mEditTags.setText(temp);
         }
     }
 
-    private TagEntity[] arrayTags(String[] tags) {
-        TagEntity[] myTags = new TagEntity[tags.length];
+    private void arrayTags(String[] tags) {
+        myTags = new ArrayList<>();
         itemTags=new MoneyTagJoin[tags.length];
         for (int i = 0; i < tags.length; i++) {
-            myTags[i] = new TagEntity(tags[i]);
-            itemTags[i] = new MoneyTagJoin(item, myTags[i]);
+            TagEntity temp = new TagEntity(tags[i]);
+            myTags.add(temp ) ;
+            itemTags[i] = new MoneyTagJoin(item,temp);
+            Log.d("CONTROLLO ID ITEM", "ITEM ID "+item.getId());
         }
-        return myTags;
+       // return myTags;
     }
 
     private Date getItemDate() {

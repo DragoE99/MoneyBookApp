@@ -82,7 +82,7 @@ public class MoneyViewModel extends AndroidViewModel {
         if (!skip) mRepository.insertTag(tag);
     }
 
-    public void insertAllTags(TagEntity[] tags) {
+    public void insertAllTags(List<TagEntity> tags) {
         for (TagEntity t : tags) {
             insertTag(t);
         }

@@ -42,7 +42,7 @@ public class ItemRangeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_range, container, false);
 
-        mMoneyViewModel = ViewModelProviders.of(this).get(MoneyViewModel.class);
+        mMoneyViewModel = ViewModelProviders.of(getActivity()).get(MoneyViewModel.class);
         statisticViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(StatisticViewModel.class);
         RecyclerView recyclerView= view.findViewById(R.id.item_range_recycler);
         final MoneyItemAdapter adapter = new MoneyItemAdapter(getContext(), mMoneyViewModel);
@@ -75,6 +75,8 @@ public class ItemRangeFragment extends Fragment {
                 adapter.setMjT(moneyTagJoins);
             }
         });
+
+
         return view;
     }
 

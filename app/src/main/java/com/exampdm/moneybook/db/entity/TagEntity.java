@@ -1,7 +1,5 @@
 package com.exampdm.moneybook.db.entity;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -10,7 +8,6 @@ import androidx.room.PrimaryKey;
 
 import com.exampdm.moneybook.model.ItemTag;
 
-import java.util.List;
 
 @Entity(tableName = "item_tag",
 indices = {@Index(value = {"tag"},unique=true)})
@@ -19,7 +16,6 @@ public class TagEntity implements ItemTag {
     @ColumnInfo(name = "id")
     private int id;
 
-    @NonNull
     @ColumnInfo(name = "tag")
     String tag;
 

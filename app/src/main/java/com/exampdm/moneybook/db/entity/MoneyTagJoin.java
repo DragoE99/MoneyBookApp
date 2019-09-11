@@ -1,32 +1,16 @@
 package com.exampdm.moneybook.db.entity;
 
-
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
-
-@Entity(tableName = "item_tag_join"/*,
-        foreignKeys = {
-            @ForeignKey(
-                    entity = MoneyEntity.class,
-                    parentColumns = "id",
-                    childColumns = "itemId"),
-            @ForeignKey(
-                entity= TagEntity.class,
-                parentColumns = "tag",
-                childColumns = "tagId")},
-indices = {@Index(value = {"itemId","tagId"})}*/)
+@Entity(tableName = "item_tag_join",
+        primaryKeys = {"itemId", "tagId"})
 public class MoneyTagJoin {
-/*primaryKeys = {"itemId", "tagId"},*/
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
-
+    @NonNull
     public long itemId;
+    @NonNull
     public  String tagId;
 
     public long getItemId() {
@@ -37,7 +21,7 @@ public class MoneyTagJoin {
         return tagId;
     }
 
-    public void setItemId(long itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
@@ -45,13 +29,6 @@ public class MoneyTagJoin {
         this.tagId = tagId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public MoneyTagJoin() {
     }

@@ -5,102 +5,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroung"
+    android:clipToPadding="false"
     android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls"
+    android:padding="4dp"
     tools:context=".UI.BalanceFragment">
 
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:fadingEdgeLength="4dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="16dp"
+        app:cardMaxElevation="24dp"
+        app:contentPadding="4dp">
 
-        <TextView
-            android:id="@+id/span_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_my_calendar_24px"
-            android:text="@string/_from_span_start" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/span_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_my_calendar_24px"
-            android:text="@string/to_span_end" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/span_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_my_calendar_24px"
+                    android:text="@string/_from_span_start" />
 
-        <TextView
-            android:id="@+id/income_String"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/income_text_view" />
+                <TextView
+                    android:id="@+id/span_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_my_calendar_24px"
+                    android:text="@string/to_span_end" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/income_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/income_text_view" />
-    </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <Button
+                    android:id="@+id/reset_tag_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="#00FFFFFF"
+                    android:text="@string/reset_button"
+                    android:textColor="@color/tagColor"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tag_textview_frg"
+                    app:layout_constraintEnd_toStartOf="@+id/tag_textview_frg"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/expanses_string"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/expanses" />
+                <Button
+                    android:id="@+id/show_tag_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:text="@string/add_tag_filter"
+                    android:textColor="@color/tagColor"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tag_textview_frg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tag_textview_frg" />
 
-        <TextView
-            android:id="@+id/expanses_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/expanses" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tag_textview_frg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/show_tag_btn"
+                    app:layout_constraintStart_toEndOf="@+id/reset_tag_button" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/Total_balance_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/total_string" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
-        <TextView
-            android:id="@+id/total_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/total_string" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/income_String"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/income_text_view" />
 
-    <TextView
-        android:id="@+id/balance__textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance" />
+                <TextView
+                    android:id="@+id/income_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/income_text_view"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/positiveAmount"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/span_frgm_balance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/span_TextView_frgmBalance" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:id="@+id/expanses_string"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/expanses" />
+
+                <TextView
+                    android:id="@+id/expanses_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/expanses"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/negativeAmount"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:id="@+id/Total_balance_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_string" />
+
+                <TextView
+                    android:id="@+id/total_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_string"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

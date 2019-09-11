@@ -2,7 +2,6 @@ package com.exampdm.moneybook.db.entity;
 
 import com.exampdm.moneybook.model.MoneyItem;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -20,12 +19,10 @@ public class MoneyEntity implements MoneyItem {
     @PrimaryKey
     private long id;
 
-    @NonNull
     private double amount;
     private Date itemDate;
     private String description;
 
-    @Override
     public long getId() {
         return id;
     }
@@ -83,14 +80,14 @@ public class MoneyEntity implements MoneyItem {
 
     @Ignore
     public MoneyEntity(double amount, Date itemDate, String description) {
-        this.id= itemDate.getTime();
+        this.id= new Date().getTime();
         this.amount = amount;
         this.itemDate = itemDate;
         this.description = description;
     }
     @Ignore
     public MoneyEntity(double amount,String description ){
-       // this.id= itemDate.getTime();
+       this.id= new Date().getTime();
         this.amount = amount;
         this.itemDate = new Date();
         this.description = description;
@@ -98,13 +95,13 @@ public class MoneyEntity implements MoneyItem {
 
     @Ignore
     public  MoneyEntity(double newAmount){
-        //this.id= itemDate.getTime();
+        this.id= new Date().getTime();
         this.amount= newAmount;
         this.itemDate= new Date();
 
     }
    public MoneyEntity(MoneyItem item){
-      // this.id= itemDate.getTime();
+       this.id= new Date().getTime();
        this.amount = item.getAmount();
        this.itemDate = item.getItemDate();
        this.description = item.getDescription();

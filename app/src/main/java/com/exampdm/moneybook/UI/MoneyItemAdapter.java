@@ -154,8 +154,8 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
         mMoneyViewModel.delete(mMoney.get(position));
         mMoney.remove(position);
         notifyItemRemoved(position);
-       showUndoSnackbar();
-       notifyDataSetChanged();
+        showUndoSnackbar();
+        notifyDataSetChanged();
     }
 
     private void showUndoSnackbar() {
@@ -184,15 +184,15 @@ public class MoneyItemAdapter extends RecyclerView.Adapter<MoneyItemAdapter.Mone
 
     public void updtItem(int position) {
         MoneyEntity itemTemp = mMoney.get(position);
-        Intent intent = new Intent(currentContext, NewItemActivity.class);
+        Intent intent = new Intent(mItemView.getContext(), NewItemActivity.class);
         intent.putExtra(EXTRA_AMOUNT, itemTemp.getStringAmount());
         intent.putExtra(EXTRA_DATE, itemTemp.getStringDate());
         intent.putExtra(EXTRA_DESCRIPTION, itemTemp.getDescription());
         intent.putExtra(EXTRA_TAGS, tagToString(itemTemp));
-        currentContext.startActivity(intent);
-        mMoneyViewModel.delete(mMoney.get(position));
-        mMoney.remove(position);
-        notifyItemRemoved(position);
+        mItemView.getContext().startActivity(intent);
+        mMoneyViewModel.delete(itemTemp);
+
+        notifyDataSetChanged();
     }
 
 
