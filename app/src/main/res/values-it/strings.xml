@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Money Book</string>
+    <string name="_from_span_start">Da</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="add_tag_filter">Aggiungi tag</string>
+    <string name="amountHint">Quantità</string>
+    <string name="balance">Conto</string>
+    <string name="clear_all_data">Elimina tutti i dati</string>
+    <string name="dateHint">Data</string>
+    <string name="descriptionHint">Descrizione</string>
+    <string name="empty_not_saved">Elemento non salvato</string>
+    <string name="expanses">Spese:</string>
+    <string name="income_text_view">Entrate</string>
+    <string name="reset_button">RESET</string>
+    <string name="saveButton">SALVA</string>
+    <string name="snack_bar_text">1 Elemento eliminato</string>
+    <string name="snack_bar_undo">Annulla</string>
+    <string name="span_TextView_frgmBalance">Intervallo</string>
+    <string name="statistics">Statistiche</string>
+    <string name="to_span_end">A</string>
+    <string name="total_string">Totale:</string>
+</resources>
